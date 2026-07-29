@@ -1,0 +1,74 @@
+{
+  "campaign_id": "dask-native-reshape-copy",
+  "command": [
+    "python",
+    "benchmark.py",
+    "--source-revision",
+    "ba5045e001d67decd6a83a0f50f666a5e3845250",
+    "--candidate-revision",
+    "939e1d89c52a6927e58da0b74fc6b719db6d2247",
+    "--repetitions",
+    "67"
+  ],
+  "report": {
+    "candidate_revision": "939e1d89c52a6927e58da0b74fc6b719db6d2247",
+    "cases": [
+      {
+        "baseline_ns": 16435266.782840094,
+        "candidate_ns": 13330300.028125444,
+        "correct": true,
+        "correctness": {
+          "output_matches": true
+        },
+        "name": "copy_compute",
+        "ratio": 0.8110790171074974
+      },
+      {
+        "baseline_ns": 13146166.689693928,
+        "candidate_ns": 11983833.275735378,
+        "correct": true,
+        "correctness": {
+          "output_matches": true
+        },
+        "name": "default_compute",
+        "ratio": 0.9115838524343547
+      },
+      {
+        "baseline_ns": 329705.0017863512,
+        "candidate_ns": 311106.99754208326,
+        "correct": true,
+        "correctness": {
+          "output_matches": true
+        },
+        "name": "no_copy_graph",
+        "ratio": 0.9435919863408094
+      }
+    ],
+    "command": [
+      "python",
+      "benchmark.py",
+      "--source-revision",
+      "ba5045e001d67decd6a83a0f50f666a5e3845250",
+      "--candidate-revision",
+      "939e1d89c52a6927e58da0b74fc6b719db6d2247",
+      "--repetitions",
+      "67"
+    ],
+    "environment": {
+      "candidate_dask": "0.0.post1+gba5045e00.d20260729",
+      "numpy": "2.5.1",
+      "platform": "Windows-10-10.0.19045-SP0",
+      "python": "3.13.12",
+      "source_dask": "0.0.post1+gba5045e00.d20260729"
+    },
+    "framework": "timeit",
+    "repetitions": 67,
+    "source_revision": "ba5045e001d67decd6a83a0f50f666a5e3845250",
+    "statistic": "median"
+  },
+  "repository": "dask/dask",
+  "runner_sha256": "441666b71156fc67b924fdf14c9c3cfa9087d7247e4bfa4484b4ebf6dacb12c3",
+  "schema_version": "1.0",
+  "source_generator": "codex",
+  "spec_sha256": "e376ee54fb690da52795868c21e36c5914d18ce0dbd07bb2834640ca8bf34a1c"
+}
