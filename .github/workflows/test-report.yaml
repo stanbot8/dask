@@ -38,10 +38,14 @@ jobs:
         activate-environment: dask
 
     - name: Show conda options
-      run: conda config --show
+      run: |-
+        conda config --show
+
 
     - name: conda list
-      run: conda list
+      run: |-
+        conda list
+
 
     - uses: actions/cache@v6
       id: cache
@@ -89,7 +93,7 @@ jobs:
         AB_RUN_ID: ${{ github.run_id }}
         AB_HEAD_SHA: 6ce3740fa79bfa051ecc74c3641f8c6a46dfdc30
         AB_WORKFLOW_DIGEST: 
-          a27feecf6ba00f80662f3ac33f364fa04d36fa3203ab48d729ae97e7ab5de7fa
+          04c0d2b118911bf040e72dda188ecba5346b65b533abec193b4c5d1ae8f7092b
         AB_EVENT: ${{ github.event_name }}
         AB_SCHEDULE: ${{ github.event.schedule || '' }}
         AB_VARIABLES: ${{ toJSON(vars) }}

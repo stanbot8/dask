@@ -88,8 +88,9 @@ jobs:
         # Note: all changes to the source code must happen before setup-pixi
         # or we'll build the package twice
       if: ${{ matrix.os != 'windows-latest' }}
-      run: sed -i.bak 's/timeout_method = "thread"/timeout_method = "signal"/' 
-        pyproject.toml
+      run: |-
+        sed -i.bak 's/timeout_method = "thread"/timeout_method = "signal"/' pyproject.toml
+
 
     - uses: prefix-dev/setup-pixi@v0.10.0
       with:
@@ -100,7 +101,9 @@ jobs:
 
     - name: Run tests
       id: run_tests
-      run: pixi run -e ${{ matrix.environment }} ${{ matrix.task }}
+      run: |-
+        pixi run -e ${{ matrix.environment }} ${{ matrix.task }}
+
 
     - name: Coverage
       uses: codecov/codecov-action@v7
@@ -155,7 +158,7 @@ jobs:
         AB_RUN_ID: ${{ github.run_id }}
         AB_HEAD_SHA: 6ce3740fa79bfa051ecc74c3641f8c6a46dfdc30
         AB_WORKFLOW_DIGEST: 
-          5995e523ca66d3cf0452412889756bbe93fe0f1b43723c36761a1cd4908e4fe3
+          021f69984229d619717a80078b65b37fd90c4856c7de25154bdf8b2947814085
         AB_EVENT: ${{ github.event_name }}
         AB_SCHEDULE: ${{ github.event.schedule || '' }}
         AB_VARIABLES: ${{ toJSON(vars) }}

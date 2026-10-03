@@ -3,19 +3,19 @@
     ".github/workflows/alpha-bridge-ci-verify.yml": "21051178fb840f31162cde1a64943007a2178f3f",
     ".github/workflows/publish-test-results.yaml": "086c6e058d5d8cc8803eb74de7fdae00d66d2723",
     ".github/workflows/stale-bot.yaml": "d347c48b6bae531fe70c45ecbfcc144311854363",
-    ".github/workflows/test-report.yaml": "c994b4e4f67e5f8f7e48150baa8b3df2b82a7f14",
-    ".github/workflows/tests.yml": "359d39e0f41c33c1d19af44748a1762044be78c2",
-    ".github/workflows/upstream.yml": "1ce228eb29952c2bc4e16bf9d2d05e1dbcaf2564"
+    ".github/workflows/test-report.yaml": "66509d711e3f8791626e8c48053ad9d2bde6c729",
+    ".github/workflows/tests.yml": "c94303036dbc80b2933495de6b71b1563b22a9f1",
+    ".github/workflows/upstream.yml": "6fb111f3c879b5adf813a82bf9fc7d8b3376e130"
   },
   "definition_sha256": {
     ".github/workflows/alpha-bridge-ci-verify.yml": "f1d0d506e1faf2ef9e00102fbf464fa1a74203bf3463e623621402b9de9e8a45",
     ".github/workflows/publish-test-results.yaml": "dfd778ba830507c614094806c9372e99e66394e248b8867bc6340fd5189f1352",
     ".github/workflows/stale-bot.yaml": "dfded3f0d805ba34c8c370e5c9262fef4f71b8d2e9477a53af0408258057411c",
-    ".github/workflows/test-report.yaml": "fc6027076811e23c594a79239e8190a07097de6662ff0f3d34d4dfd2e6a0a89f",
-    ".github/workflows/tests.yml": "d14377e2135a27f4ad9f98fd694e0ee137170032b3a3854ade3dcd8ace7fe5be",
-    ".github/workflows/upstream.yml": "544fa33a68a84839c74e2b08b82bf2e60afe10218b6b38f134589bb381a97b06"
+    ".github/workflows/test-report.yaml": "ef3296d516e0103e76dc655c30deef568f216487422e575f5c76329caee01006",
+    ".github/workflows/tests.yml": "810f2effc935f6003f28fcfe7b872d38db11a7cff984516828a18a8920af5c10",
+    ".github/workflows/upstream.yml": "86971818d5e8aa3bbabf754f213aa9c9be0507ee616b373338f4dfb7d8c75082"
   },
-  "generator_sha256": "34bc8c1c1eb9b2799c6a06a6f7bd056799561a0342e1ccd9d7ec69c0f000ae82",
+  "generator_sha256": "9fe7eb2612d4c4d8436e5a627541cad32d0dcba429639855b5a0a2af04b9729a",
   "schema": "alpha-bridge/fork-ci",
   "source_branch": "main",
   "source_commit": "6ce3740fa79bfa051ecc74c3641f8c6a46dfdc30",

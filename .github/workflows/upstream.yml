@@ -45,8 +45,9 @@ jobs:
         # Note: all changes to the source code must happen before `pixi install`
         # or we'll build the package twice
       if: ${{ matrix.os != 'windows-latest' }}
-      run: sed -i.bak 's/timeout_method = "thread"/timeout_method = "signal"/' 
-        pyproject.toml
+      run: |-
+        sed -i.bak 's/timeout_method = "thread"/timeout_method = "signal"/' pyproject.toml
+
 
     - uses: prefix-dev/setup-pixi@v0.10.0
       with:
@@ -56,15 +57,20 @@ jobs:
         locked: false
 
     - name: pixi update
-      run: pixi update -e ${{ matrix.environment }}
+      run: |-
+        pixi update -e ${{ matrix.environment }}
+
 
     - name: pixi install
-      run: pixi install -e ${{ matrix.environment }}
+      run: |-
+        pixi install -e ${{ matrix.environment }}
+
 
     - name: Run tests
       id: run_tests
-      run: pixi run -e ${{ matrix.environment }} test-ci --report-log 
-        output-log.jsonl
+      run: |-
+        pixi run -e ${{ matrix.environment }} test-ci --report-log output-log.jsonl
+
 
     - name: Open or update issue on failure
       if: |
@@ -103,7 +109,7 @@ jobs:
         AB_RUN_ID: ${{ github.run_id }}
         AB_HEAD_SHA: 6ce3740fa79bfa051ecc74c3641f8c6a46dfdc30
         AB_WORKFLOW_DIGEST: 
-          50e2a47d6453c2fa7d1dea57d3c2d1811137e0d8ee5551e2e425a966da2ee65d
+          816043d40b0584fb0d39b3bd511a32d57d055aa03f986dc11a54cf8efc9adf30
         AB_EVENT: ${{ github.event_name }}
         AB_SCHEDULE: ${{ github.event.schedule || '' }}
         AB_VARIABLES: ${{ toJSON(vars) }}
