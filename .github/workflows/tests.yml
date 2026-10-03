@@ -2,14 +2,15 @@ name: Tests
 
 on:
   push:
-    branches:
-    - main
-    tags:
-    - '*'
+    branches: [main]
+    tags: ['*']
   pull_request:
   workflow_dispatch:
-  schedule: -
-    cron: 0 6,18 * * *
+  schedule:
+    # Rerun CI in order to detect flaky tests. Note that all packages are pinned, so
+    # these scheduled runs are unaffected by upstream releases.
+    # The upstream.yml workflow will instead pick up upstream changes.
+  - cron: 0 6,18 * * *
 
 # When this workflow is queued, automatically cancel any previous running
 # or pending jobs from the same branch
@@ -35,20 +36,12 @@ jobs:
       matrix:
         # Note: after adding/removing builds here, update
         # codecov.yml to match.
-        os:
-        - ubuntu-latest
-        - ubuntu-24.04-arm
-        - windows-latest
-        environment:
-        - py310
-        - py311
-        - py312
-        - py313
-        - py314
-        task:
-        - test-ci
-        include: -
-          os: macos-latest
+        os: [ubuntu-latest, ubuntu-24.04-arm, windows-latest]
+        environment: [py310, py311, py312, py313, py314]
+        task: [test-ci]
+        include:
+          # MacOS CI does not have many hosts available; run it on 3.14 only
+        - os: macos-latest
           environment: py314
           task: test-ci
           # Minimum dependencies
@@ -162,7 +155,7 @@ jobs:
         AB_RUN_ID: ${{ github.run_id }}
         AB_HEAD_SHA: 6ce3740fa79bfa051ecc74c3641f8c6a46dfdc30
         AB_WORKFLOW_DIGEST: 
-          8551274f9ae1d5cd87256b5743b2fdd2f5d71692263d60ee0561d96be86434ac
+          5995e523ca66d3cf0452412889756bbe93fe0f1b43723c36761a1cd4908e4fe3
         AB_EVENT: ${{ github.event_name }}
         AB_SCHEDULE: ${{ github.event.schedule || '' }}
         AB_VARIABLES: ${{ toJSON(vars) }}

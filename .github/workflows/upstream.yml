@@ -4,10 +4,8 @@ on:
   schedule:
   - cron: 0 1 * * *
   push:
-    branches:
-    - main
-    tags:
-    - '*'
+    branches: [main]
+    tags: ['*']
   pull_request:
   workflow_dispatch:
 
@@ -32,9 +30,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        environment:
-        - py314
-        - nightly
+        environment: [py314, nightly]
     steps:
     - name: Checkout source
       uses: actions/checkout@v7
@@ -107,7 +103,7 @@ jobs:
         AB_RUN_ID: ${{ github.run_id }}
         AB_HEAD_SHA: 6ce3740fa79bfa051ecc74c3641f8c6a46dfdc30
         AB_WORKFLOW_DIGEST: 
-          644ebab14d80add01c8374226c30007a0e241f4129803e34218064a91fd7a001
+          50e2a47d6453c2fa7d1dea57d3c2d1811137e0d8ee5551e2e425a966da2ee65d
         AB_EVENT: ${{ github.event_name }}
         AB_SCHEDULE: ${{ github.event.schedule || '' }}
         AB_VARIABLES: ${{ toJSON(vars) }}
