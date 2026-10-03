@@ -19,6 +19,13 @@ jobs:
           Issue,good second issue,feature request
         exempt-draft-pr: true
         start-date: '2020-04-18T00:00:00Z'   # ignore before this date, ISO 8601 or RFC 2822
+    env:
+      ALPHA_BRIDGE_SOURCE_SHA: ${{ github.event_name == 'schedule' && 
+        '6ce3740fa79bfa051ecc74c3641f8c6a46dfdc30' || github.sha }}
+      ALPHA_BRIDGE_SOURCE_REF: ${{ github.event_name == 'schedule' && 
+        'refs/heads/main' || github.ref }}
+      ALPHA_BRIDGE_SOURCE_REF_NAME: ${{ github.event_name == 'schedule' && 
+        'main' || github.ref_name }}
     needs:
     - alpha_bridge_inputs
     if: ${{ (success()) && needs.alpha_bridge_inputs.outputs.changed == 'true' 
@@ -44,7 +51,7 @@ jobs:
         AB_RUN_ID: ${{ github.run_id }}
         AB_HEAD_SHA: 6ce3740fa79bfa051ecc74c3641f8c6a46dfdc30
         AB_WORKFLOW_DIGEST: 
-          5dd90507867663bf62d15dc49777f57e389ece06eebfe9e41de2edaf913b894e
+          4178edd6262ad8d1ded62ca63a4a30c38539e37363755d75824c6bbe666e5834
         AB_EVENT: ${{ github.event_name }}
         AB_SCHEDULE: ${{ github.event.schedule || '' }}
         AB_VARIABLES: ${{ toJSON(vars) }}

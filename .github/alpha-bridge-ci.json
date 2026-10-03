@@ -1,19 +1,19 @@
 {
   "definition_blob_sha1": {
     ".github/workflows/alpha-bridge-ci-verify.yml": "211d78b275bbb87055d46d18edfc9b309afb7fd3",
-    ".github/workflows/stale-bot.yaml": "2a669b992cacc741fc47825d8314e4419e005a5c",
-    ".github/workflows/test-report.yaml": "c19c9ddd9083a40bce11bc22c638e094fcd3a149",
-    ".github/workflows/tests.yml": "d75c1113be04aa8637260bd5d04eea38dab5c5af",
-    ".github/workflows/upstream.yml": "538f4001cbbe6f31572a7e836842e191dc2dd40c"
+    ".github/workflows/stale-bot.yaml": "1c253ed200fe6b87b466e6d36918f41cc5f26fa8",
+    ".github/workflows/test-report.yaml": "d5ec5db4fb9191e9b0bd16712d4104683b8e671e",
+    ".github/workflows/tests.yml": "fde26679b64da5ccc4ee497ec32cfb830f6e2622",
+    ".github/workflows/upstream.yml": "fb773da5b797df526201df0d746bd906e494616e"
   },
   "definition_sha256": {
     ".github/workflows/alpha-bridge-ci-verify.yml": "4cac5461d20019fd71bd15ab6e775a433bcfc570d3cc96f9132a4bf68d15c04e",
-    ".github/workflows/stale-bot.yaml": "d1cdc1c3ff24bfdb614858b67afea201c7e0287ea3883a868c1aae18bce36341",
-    ".github/workflows/test-report.yaml": "115d53d683d8daf2a6fd82e4fa4a5fa679e5e7fa61444e346a5a44f82e96e7ca",
-    ".github/workflows/tests.yml": "cd3f250ca7cce9c92197e22d172f37a995d18bdea8bf7824a8e7dd5eb54ee001",
-    ".github/workflows/upstream.yml": "87966144ef914be015795ae5c274c67da66bbe3a8d562ce42789e8dba8995b5f"
+    ".github/workflows/stale-bot.yaml": "35bd14b7ff9c7c496a5e3f5c6e53c56f88547038e25c9eea9df5035df726717c",
+    ".github/workflows/test-report.yaml": "b04441cf2cbffa63cf06ad44cb1fb8d2b7885d52376a0b28560fb9d3668d3e7b",
+    ".github/workflows/tests.yml": "f0cdf1752a49775739dad89a5a125be828e292bc2ef84c516f0a97cb4c62f882",
+    ".github/workflows/upstream.yml": "798f341dadbcde024cdce42be80da9beb1a34f30cc3cb8f535e46187e0b512bb"
   },
-  "generator_sha256": "f5fbad0230ba7fa85305a317f424ab1f31bb96ff28ce023a46664fdaad8051c9",
+  "generator_sha256": "3b26cda454cba3b637212cdea3d130c69e2223d93535daef4f59e8f73b2e6cc3",
   "schema": "alpha-bridge/fork-ci",
   "source_branch": "main",
   "source_commit": "6ce3740fa79bfa051ecc74c3641f8c6a46dfdc30",

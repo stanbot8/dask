@@ -1,9 +1,8 @@
 name: Test Report
 
 on:
-  schedule:
-    # Run 2h after the daily tests.yaml
-  - cron: 0 8,20 * * *
+  schedule: -
+    cron: 0 8,20 * * *
   workflow_dispatch:
 
 permissions:
@@ -19,6 +18,12 @@ jobs:
     runs-on: ubuntu-latest
     env:
       GITHUB_TOKEN: ${{ github.token }}
+      ALPHA_BRIDGE_SOURCE_SHA: ${{ github.event_name == 'schedule' && 
+        '6ce3740fa79bfa051ecc74c3641f8c6a46dfdc30' || github.sha }}
+      ALPHA_BRIDGE_SOURCE_REF: ${{ github.event_name == 'schedule' && 
+        'refs/heads/main' || github.ref }}
+      ALPHA_BRIDGE_SOURCE_REF_NAME: ${{ github.event_name == 'schedule' && 
+        'main' || github.ref_name }}
     defaults:
       run:
         shell: bash -l {0}
@@ -89,7 +94,7 @@ jobs:
         AB_RUN_ID: ${{ github.run_id }}
         AB_HEAD_SHA: 6ce3740fa79bfa051ecc74c3641f8c6a46dfdc30
         AB_WORKFLOW_DIGEST: 
-          3bcb169ef449b3c878ca9efd78bcb38ae076b763e29dbbf7d21b1e68ba223f31
+          fc99d9e2b940ef878af72582ef7ed7812d85f9de29c615284383ab9ed2b44206
         AB_EVENT: ${{ github.event_name }}
         AB_SCHEDULE: ${{ github.event.schedule || '' }}
         AB_VARIABLES: ${{ toJSON(vars) }}

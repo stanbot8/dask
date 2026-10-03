@@ -2,20 +2,20 @@ name: Tests
 
 on:
   push:
-    branches: [main]
-    tags: ['*']
+    branches:
+    - main
+    tags:
+    - '*'
   pull_request:
   workflow_dispatch:
-  schedule:
-    # Rerun CI in order to detect flaky tests. Note that all packages are pinned, so
-    # these scheduled runs are unaffected by upstream releases.
-    # The upstream.yml workflow will instead pick up upstream changes.
-  - cron: 0 6,18 * * *
+  schedule: -
+    cron: 0 6,18 * * *
 
 # When this workflow is queued, automatically cancel any previous running
 # or pending jobs from the same branch
 concurrency:
-  group: tests-${{ github.ref }}
+  group: tests-${{ (github.event_name == 'schedule' && 'refs/heads/main' || 
+    github.ref) }}
   cancel-in-progress: ${{ github.event_name != 'schedule' && (true) }}
 
 jobs:
@@ -34,12 +34,20 @@ jobs:
       matrix:
         # Note: after adding/removing builds here, update
         # codecov.yml to match.
-        os: [ubuntu-latest, ubuntu-24.04-arm, windows-latest]
-        environment: [py310, py311, py312, py313, py314]
-        task: [test-ci]
-        include:
-          # MacOS CI does not have many hosts available; run it on 3.14 only
-        - os: macos-latest
+        os:
+        - ubuntu-latest
+        - ubuntu-24.04-arm
+        - windows-latest
+        environment:
+        - py310
+        - py311
+        - py312
+        - py313
+        - py314
+        task:
+        - test-ci
+        include: -
+          os: macos-latest
           environment: py314
           task: test-ci
           # Minimum dependencies
@@ -78,6 +86,8 @@ jobs:
       with:
         fetch-depth: 0    # Needed by codecov.io
 
+        ref: ${{ github.event_name == 'schedule' && 
+          '6ce3740fa79bfa051ecc74c3641f8c6a46dfdc30' || github.sha }}
     - name: Reconfigure pytest-timeout
         # No SIGALRM available on Windows
         # Note: all changes to the source code must happen before setup-pixi
@@ -105,14 +115,21 @@ jobs:
     - name: Upload test results
         # ensure this runs even if pytest fails
       if: >
-        always() &&
-        (steps.run_tests.outcome == 'success' || steps.run_tests.outcome == 'failure')
+        always() && (steps.run_tests.outcome == 'success' || steps.run_tests.outcome
+        == 'failure')
       uses: actions/upload-artifact@v7
       with:
         name: ${{ matrix.os }}-${{ matrix.environment }}-${{ matrix.task }}
         path: pytest.xml
 
   # Publish an artifact for the event; used by publish-test-results.yaml
+    env:
+      ALPHA_BRIDGE_SOURCE_SHA: ${{ github.event_name == 'schedule' && 
+        '6ce3740fa79bfa051ecc74c3641f8c6a46dfdc30' || github.sha }}
+      ALPHA_BRIDGE_SOURCE_REF: ${{ github.event_name == 'schedule' && 
+        'refs/heads/main' || github.ref }}
+      ALPHA_BRIDGE_SOURCE_REF_NAME: ${{ github.event_name == 'schedule' && 
+        'main' || github.ref_name }}
     needs:
     - alpha_bridge_inputs
   event_file:
@@ -127,6 +144,13 @@ jobs:
       with:
         name: Event File
         path: ${{ github.event_path }}
+    env:
+      ALPHA_BRIDGE_SOURCE_SHA: ${{ github.event_name == 'schedule' && 
+        '6ce3740fa79bfa051ecc74c3641f8c6a46dfdc30' || github.sha }}
+      ALPHA_BRIDGE_SOURCE_REF: ${{ github.event_name == 'schedule' && 
+        'refs/heads/main' || github.ref }}
+      ALPHA_BRIDGE_SOURCE_REF_NAME: ${{ github.event_name == 'schedule' && 
+        'main' || github.ref_name }}
     needs:
     - alpha_bridge_inputs
   alpha_bridge_inputs:
@@ -150,7 +174,7 @@ jobs:
         AB_RUN_ID: ${{ github.run_id }}
         AB_HEAD_SHA: 6ce3740fa79bfa051ecc74c3641f8c6a46dfdc30
         AB_WORKFLOW_DIGEST: 
-          abef6ca09db052f7846d61e88534140d0244be7aef2facff6e4315d1da1c34ae
+          b3f25e78bd5b6c1d9407efaa65d1e57649040cdbdd29014d188caa4b28504124
         AB_EVENT: ${{ github.event_name }}
         AB_SCHEDULE: ${{ github.event.schedule || '' }}
         AB_VARIABLES: ${{ toJSON(vars) }}

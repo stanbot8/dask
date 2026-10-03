@@ -4,15 +4,18 @@ on:
   schedule:
   - cron: 0 1 * * *
   push:
-    branches: [main]
-    tags: ['*']
+    branches:
+    - main
+    tags:
+    - '*'
   pull_request:
   workflow_dispatch:
 
 # When this workflow is queued, automatically cancel any previous running
 # or pending jobs from the same branch
 concurrency:
-  group: upstream-${{ github.ref }}
+  group: upstream-${{ (github.event_name == 'schedule' && 'refs/heads/main' || 
+    github.ref) }}
   cancel-in-progress: ${{ github.event_name != 'schedule' && (true) }}
 
 jobs:
@@ -28,13 +31,17 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        environment: [py314, nightly]
+        environment:
+        - py314
+        - nightly
     steps:
     - name: Checkout source
       uses: actions/checkout@v7
       with:
         fetch-depth: 0
 
+        ref: ${{ github.event_name == 'schedule' && 
+          '6ce3740fa79bfa051ecc74c3641f8c6a46dfdc30' || github.sha }}
     - name: Reconfigure pytest-timeout
         # No SIGALRM available on Windows
         # Note: all changes to the source code must happen before `pixi install`
@@ -75,6 +82,13 @@ jobs:
 
     - name: Coverage
       uses: codecov/codecov-action@v7
+    env:
+      ALPHA_BRIDGE_SOURCE_SHA: ${{ github.event_name == 'schedule' && 
+        '6ce3740fa79bfa051ecc74c3641f8c6a46dfdc30' || github.sha }}
+      ALPHA_BRIDGE_SOURCE_REF: ${{ github.event_name == 'schedule' && 
+        'refs/heads/main' || github.ref }}
+      ALPHA_BRIDGE_SOURCE_REF_NAME: ${{ github.event_name == 'schedule' && 
+        'main' || github.ref_name }}
     needs:
     - alpha_bridge_inputs
   alpha_bridge_inputs:
@@ -98,7 +112,7 @@ jobs:
         AB_RUN_ID: ${{ github.run_id }}
         AB_HEAD_SHA: 6ce3740fa79bfa051ecc74c3641f8c6a46dfdc30
         AB_WORKFLOW_DIGEST: 
-          77b1156b585041d37d50b448f67d5ccd2e6293e183af219fc286e04f74d383a4
+          49a8539b200b456c1de637cdd0249b8ac00717ab558dff65c52293858fe63515
         AB_EVENT: ${{ github.event_name }}
         AB_SCHEDULE: ${{ github.event.schedule || '' }}
         AB_VARIABLES: ${{ toJSON(vars) }}
