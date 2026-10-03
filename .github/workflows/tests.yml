@@ -148,7 +148,9 @@ jobs:
         GH_TOKEN: ${{ github.token }}
         AB_REPOSITORY: ${{ github.repository }}
         AB_RUN_ID: ${{ github.run_id }}
-        AB_HEAD_SHA: ${{ github.sha }}
+        AB_HEAD_SHA: 6ce3740fa79bfa051ecc74c3641f8c6a46dfdc30
+        AB_WORKFLOW_DIGEST: 
+          abef6ca09db052f7846d61e88534140d0244be7aef2facff6e4315d1da1c34ae
         AB_EVENT: ${{ github.event_name }}
         AB_SCHEDULE: ${{ github.event.schedule || '' }}
         AB_VARIABLES: ${{ toJSON(vars) }}
@@ -160,11 +162,11 @@ jobs:
         import urllib.request\n\n\ndef changed(get, *, repository, run_id, identity,
         job_name):\n    current = get(f\"/repos/{repository}/actions/runs/{run_id}\"\
         )\n    event = current[\"event\"]\n    query = urllib.parse.urlencode(\n \
-        \       {\n            \"head_sha\": current[\"head_sha\"],\n            \"\
-        event\": event,\n            \"per_page\": 100,\n        }\n    )\n    runs
-        = get(f\"/repos/{repository}/actions/workflows/{current['workflow_id']}/runs?{query}\"\
+        \       {\n            \"branch\": current[\"head_branch\"],\n           \
+        \ \"event\": event,\n            \"per_page\": 100,\n        }\n    )\n  \
+        \  runs = get(f\"/repos/{repository}/actions/workflows/{current['workflow_id']}/runs?{query}\"\
         )\n    for run in runs[\"workflow_runs\"]:\n        if run[\"id\"] == run_id:\n\
-        \            continue\n        if run.get(\"head_sha\") != current[\"head_sha\"\
+        \            continue\n        if run.get(\"head_branch\") != current[\"head_branch\"\
         ] or run.get(\"event\") != event:\n            raise ValueError(\"provider
         returned a different CI input identity\")\n        page = 1\n        while
         True:\n            jobs = get(\n                f\"/repos/{repository}/actions/runs/{run['id']}/jobs?per_page=100&page={page}\"\
@@ -177,8 +179,9 @@ jobs:
         \   for step in job.get(\"steps\", [])\n                    )\n          \
         \      ):\n                    return False\n            if len(jobs) < 100:\n\
         \                break\n            page += 1\n    return True\n\n\ndef main():\n\
-        \    inputs = {\n        \"configuration_commit\": os.environ[\"AB_HEAD_SHA\"\
-        ],\n        \"event\": os.environ[\"AB_EVENT\"],\n        \"schedule\": os.environ[\"\
+        \    inputs = {\n        \"source_commit\": os.environ[\"AB_HEAD_SHA\"],\n\
+        \        \"workflow_definition\": os.environ[\"AB_WORKFLOW_DIGEST\"],\n  \
+        \      \"event\": os.environ[\"AB_EVENT\"],\n        \"schedule\": os.environ[\"\
         AB_SCHEDULE\"],\n        \"variables\": json.loads(os.environ[\"AB_VARIABLES\"\
         ]),\n        \"inputs\": json.loads(os.environ[\"AB_INPUTS\"]),\n        \"\
         runner_image\": [os.environ.get(\"ImageOS\", \"\"), os.environ.get(\"ImageVersion\"\
