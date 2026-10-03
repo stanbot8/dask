@@ -1,19 +1,21 @@
 {
   "definition_blob_sha1": {
-    ".github/workflows/alpha-bridge-ci-verify.yml": "211d78b275bbb87055d46d18edfc9b309afb7fd3",
-    ".github/workflows/stale-bot.yaml": "1c253ed200fe6b87b466e6d36918f41cc5f26fa8",
-    ".github/workflows/test-report.yaml": "d5ec5db4fb9191e9b0bd16712d4104683b8e671e",
-    ".github/workflows/tests.yml": "fde26679b64da5ccc4ee497ec32cfb830f6e2622",
-    ".github/workflows/upstream.yml": "fb773da5b797df526201df0d746bd906e494616e"
+    ".github/workflows/alpha-bridge-ci-verify.yml": "21051178fb840f31162cde1a64943007a2178f3f",
+    ".github/workflows/publish-test-results.yaml": "a7de23a449fe934b2d8917c832622b7775332073",
+    ".github/workflows/stale-bot.yaml": "d347c48b6bae531fe70c45ecbfcc144311854363",
+    ".github/workflows/test-report.yaml": "a2f8718f8f157c85feead6087b3b25322d753199",
+    ".github/workflows/tests.yml": "2ab523fa337ac94b2145ad7c2f9c054e4f708a0d",
+    ".github/workflows/upstream.yml": "0c849b6bfd4e550e62a2389bbef2443578085a19"
   },
   "definition_sha256": {
-    ".github/workflows/alpha-bridge-ci-verify.yml": "4cac5461d20019fd71bd15ab6e775a433bcfc570d3cc96f9132a4bf68d15c04e",
-    ".github/workflows/stale-bot.yaml": "35bd14b7ff9c7c496a5e3f5c6e53c56f88547038e25c9eea9df5035df726717c",
-    ".github/workflows/test-report.yaml": "b04441cf2cbffa63cf06ad44cb1fb8d2b7885d52376a0b28560fb9d3668d3e7b",
-    ".github/workflows/tests.yml": "f0cdf1752a49775739dad89a5a125be828e292bc2ef84c516f0a97cb4c62f882",
-    ".github/workflows/upstream.yml": "798f341dadbcde024cdce42be80da9beb1a34f30cc3cb8f535e46187e0b512bb"
+    ".github/workflows/alpha-bridge-ci-verify.yml": "f1d0d506e1faf2ef9e00102fbf464fa1a74203bf3463e623621402b9de9e8a45",
+    ".github/workflows/publish-test-results.yaml": "fb5c1eb181944a81e5368e64c386e6fefe1dacad95383de45211628a7c651dd9",
+    ".github/workflows/stale-bot.yaml": "dfded3f0d805ba34c8c370e5c9262fef4f71b8d2e9477a53af0408258057411c",
+    ".github/workflows/test-report.yaml": "8e94616a99e77cf67edb27f7e5dad838da48ce6d741ef8eea5ba16cb2a44a7d5",
+    ".github/workflows/tests.yml": "a8c0a64634afd28256e6d6faf6e7c7a9e134f4d323f4a57c962e7d95e365fc1d",
+    ".github/workflows/upstream.yml": "d9b81a7de48a53d59293c04023183f9e5dfcf9aa3d9bb5b62c305789a489ccbd"
   },
-  "generator_sha256": "3b26cda454cba3b637212cdea3d130c69e2223d93535daef4f59e8f73b2e6cc3",
+  "generator_sha256": "d20fb8b8348d1a9a5c6e1057d775b208188196d5c2634d6ec392227f92b995f5",
   "schema": "alpha-bridge/fork-ci",
   "source_branch": "main",
   "source_commit": "6ce3740fa79bfa051ecc74c3641f8c6a46dfdc30",
@@ -21,6 +23,7 @@
   "version": 1,
   "workflows": [
     ".github/workflows/alpha-bridge-ci-verify.yml",
+    ".github/workflows/publish-test-results.yaml",
     ".github/workflows/stale-bot.yaml",
     ".github/workflows/test-report.yaml",
     ".github/workflows/tests.yml",
